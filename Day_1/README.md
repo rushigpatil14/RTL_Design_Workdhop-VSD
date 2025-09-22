@@ -21,7 +21,7 @@ It converts verilog code into Gate Level Netlist. This Netlist contain the list 
 ***
 
 
-## 3. Simulation of 2:1 Multiplexer
+## I. Simulation of 2:1 Multiplexer
 * **Clone the Repository for Workshop** 
  
     ``` bash
@@ -59,8 +59,9 @@ It converts verilog code into Gate Level Netlist. This Netlist contain the list 
     gtkwave tb_good_mux.vcd
     ```
     ![GtkWave](Images/gtkwave.png)
+---
 
-## Yosys Synthesis Steps
+## II. Yosys Synthesis Steps
 
 * **Step1 - Open Yosys**
     ```bash
@@ -94,6 +95,10 @@ It converts verilog code into Gate Level Netlist. This Netlist contain the list 
     ```
 
     ![Schematic](Images/schematic.png)
+---
+## Summary
+* We use **iverilog** to simulate out DUT with Testbench
+* For Synthesis we use **Yosys**
 
 
 
