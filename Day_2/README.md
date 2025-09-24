@@ -19,9 +19,11 @@ In this we are going to explore how ``.lib`` file read and the concept of Hierar
 
     * If you don't like the syntax color press ``Shift`` + ``:``
     * Then write 
-        ``bash
+        ```bash
         syn off
-        ``
+        ```
+
+![lib_file](Images/syn%20off.png)
 ---
 
 ## 2. Introduction to Hierarchical Synthesis
@@ -140,4 +142,107 @@ The synthesis tool takes all the individual sub-modules and their interconnectio
 
 ---
 
+## Introduction to D Flip-Flop 
 
+* ### What is D Flip-Flop?
+    - D means Data
+    - It stores the value of input ``D`` at the time of clock edge into output ``Q``
+    - At clock edge ``Q = D``
+    - Between clock edge ``Q`` dosent change
+
+* ### DFF Coding Styles
+
+    * 1] **Asynchronous Reset**
+
+        - Forces output ``Q = 0`` immediately, without waiting for clock.
+        - Useful for quickly resetting circuit on power-up
+        - Async → happens immediately, independent of clock
+        - For a visual of the waveform, click [here](#gtkwave-image).
+
+    * 2] **Asynchronous Set**
+        
+        - Forces output ``Q = 1`` immediately, without waiting for clock
+        - Similar to async reset but sets instead of clears
+        - Async → happens immediately, independent of clock
+        - For a visual of the waveform, click [here](#Async-set)
+
+    * 3] **Synchronous Set**
+
+        - Forces output ``Q = 1`` only at clock edge
+        - If set = 1 at clock tick → Q becomes 1
+        - Sync → happens only with clock edge
+        - For a visual of the waveform, click [here](#Sync-set)
+---
+
+## Labes on DFF
+
+* ### **Design simulation**
+    * We are using ```dff_asyncres.v``` DUT file for sumulation.
+    * ```tb_dff_asyncres.v``` is the testbench file.
+
+    * To compile Design and Testbench use
+    ```bash
+    iverilog dff_asyncres.v tb_dff_asyncres.v
+    ```
+    * To run simulation use
+    ```bash
+    ./a.out
+    ```
+    
+    * The ```.vcd``` file will be generated. 
+
+    * Open gtkwave to view waveform use
+    ```bash
+    gtkwave tb_dff_asyncres.vcd
+    ```
+
+    <a id="gtkwave-image">![GtkWave](Images/gtk1.png)</a>
+    
+
+---
+
+* ###  **Yosys Synthesis Steps**
+
+    * **Step1 - Open Yosys**
+        ```bash
+        yosys
+        ```
+    * **Step2 - Load standerd cell library**
+        ```bash
+        read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  //use path to locate sky130_fd_sc_hd__tt_025C_1v80.lib file
+        ```
+    * **Step3 - Read verilog design**
+        ```bash
+        read_verilog dff_asyncres.v //Loads your HDL design 
+        ```
+    * **Step4 - Define the top Module**
+        ```bash
+        synth -top dff_asyncres  //Synthesize your RTL into generic gate
+        ```
+    * **Step5 - Technplogy mapping with dfflibmap**
+        ```bash
+        dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+        ```
+    * **Step6 - Technplogy mapping with abc**
+        ```bash
+        abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+        ```
+    * **Step7 - View the Schematic**
+        ```bash
+        show 
+        ```
+
+    ![Schematic](Images/yosys1.png)
+---
+
+### Using similar commands
+* **dff_async_set.v as DUT**
+  
+    <a id = "Async-set">![Gtkwave](Images/gtk2.png)</a>
+---
+
+* **dff_syncres.v as DUT**
+    <a id = "Sync-set">![Gtkwave](Images/gtk3.png)</a>
+    ![Schematic](Images/yosys3.png)
+
+---
