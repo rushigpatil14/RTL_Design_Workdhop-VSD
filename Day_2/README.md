@@ -195,7 +195,7 @@ The synthesis tool takes all the individual sub-modules and their interconnectio
     ```bash
     gtkwave tb_dff_asyncres.vcd
     ```
-
+    
     <a id="gtkwave-image">![GtkWave](Images/gtk1.png)</a>
     
 
@@ -239,6 +239,7 @@ The synthesis tool takes all the individual sub-modules and their interconnectio
 * **dff_async_set.v as DUT**
   
     <a id = "Async-set">![Gtkwave](Images/gtk2.png)</a>
+    ![Schamatic](Images/yosys2.png)
 ---
 
 * **dff_syncres.v as DUT**
