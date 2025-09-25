@@ -46,6 +46,7 @@ In this lab we are using ```incomp_if.v``` file as DUT and ```tb_incomp_if.v``` 
 
 ![show](Images/show1.png)
 
+---
 
 Similarly we have to perform steps for ```incomp_if2.v``` DUT
 
